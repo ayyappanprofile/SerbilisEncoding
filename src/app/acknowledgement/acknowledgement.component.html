@@ -1,0 +1,110 @@
+<body id="ACK">
+<p class="mt-0 mb-0 black-big-heading"><i>Your EE Reference Number&nbsp;<span data-bind="text:OthersWebReferenceNo()"></span>.</i></p>
+
+<p class="mt-0 mb-0 black-big-heading"><i>Your Reference Number&nbsp;<span data-bind="text:OthersWebReferenceNo()"></span>.</i></p>
+
+<p class="mt-0"><i>Please read the Payment and Delivery instruction.</i></p>
+<h3 class="title mt-0 mb-0">Contact and Delivery Information</h3>
+<div class="row">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <p class="mb-0">Requester's Name</p>
+            <p class="mt-0 mb-0 text-bold"><span data-bind="text:RequesterName()" class="text-field-value"></span></p>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <p class="mb-0">Delivery Address</p>
+            <p class="mt-0 mb-0 text-bold"><span data-bind="text:DeliveryAddress()" class="text-field-value"></span></p>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <p class="mb-0">Request Date</p>
+            <p class="mt-0 mb-0 text-bold"><span data-bind="text:RequestDate()" class="text-field-value"></span></p>
+        </div>
+    </div>
+</div>
+<div class="row" data-bind="visible: TransactionType() != 'EE'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <p class="mb-0">Total Amount Due (PHP)</p>
+            <p class="mt-0 mb-0 text-bold"><span data-bind="text:TotAmntDue()" class="text-field-value"></span></p>
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:30px;" data-bind="visible:NonVORequests().length>=1">
+    <h3 class="title mt-0" style="margin-bottom:15px;">Request Summary</h3>
+    <div class="row ml-0 mr-0">
+        <div class="flip-scroll">
+            <table class="table table-striped table-bordered flip-content">
+                <thead class="flip-content">
+                    <tr>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Event Date</th>
+                        <th>Event Place</th>
+                        <th>Copies</th>
+                        <th>Amount Due</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach:NonVORequests">
+                    <tr>
+                        <td><span data-bind="text:SelectedCertificate!=null?SelectedCertificate:''"></span></td>
+                        <td><span data-bind="text:$parent.ClaimaintLastName() + ','+$parent.ClaimaintFirstName()"></span></td>
+                        <td><span data-bind="text:DateOfEvent!=null?moment(DateOfEvent).format('MM/DD/YYYY'):''"></span></td>
+                        <td><span data-bind="text:SelectedCountry!=null?(SelectedCountry.Text) +'  '  + (SelectedProvince!=null?SelectedProvince.Text:'')+ '  ' + (SelectedMuncipal!=null?SelectedMuncipal.Description:''):''"></span></td>
+                        <td> <span data-bind="text:Copies"></span></td>
+                        <td>
+                            <span data-bind="text:amountdue"></span>                          
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<div style="margin-top:30px;" data-bind="visible:IsVORequestExists">
+    <p class="black-big-heading" style="margin-bottom:5px;"><i>Your Reference Number&nbsp;<span data-bind="text:VOWebReferenceNo()"></span>.</i></p>
+    <h3 class="title mt-0" style="margin-bottom:15px;">Request Summary - <i>Viewable Online</i></h3>
+    <div class="row ml-0 mr-0">
+        <div class="flip-scroll">
+            <table class="table table-striped table-bordered flip-content">
+                <thead class="flip-content">
+                    <tr>
+                        <th>Type</th>
+                        <th>Name</th>
+                        <th>Event Date</th>
+                        <th>Event Place</th>
+                        <th>Copies</th>
+                        <th>Amount Due</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach:VORequests">
+                    <tr data-bind="if:TransactionType == 'VO'">
+                        <td><span data-bind="text:SelectedCertificate!=null?SelectedCertificate:TransactionSubType=='D'?'Death':TransactionSubType=='B'?'Birth':TransactionSubType=='M'?'Marriage':TransactionSubType=='R'?'Cenomar':TransactionSubType=='H'?'Cenodeath':''"></span></td>
+                        <td><span data-bind="text:$parent.ClaimaintLastName() + ','+$parent.ClaimaintFirstName()"></span></td>
+                        <td><span data-bind="text:DateOfEvent!=null?moment(DateOfEvent).format('MM/DD/YYYY'):''"></span></td>
+                        <td><span data-bind="text:SelectedCountry!=null?(SelectedCountry.Text) +'  '  + (SelectedProvince!=null?SelectedProvince.Text:'')+ '  ' + (SelectedMuncipal!=null?SelectedMuncipal.Description:''):''"></span></td>
+                        <td> <span data-bind="text:Copies"></span></td>
+                        <td>                          
+                            <span data-bind="text:amountdue"></span>                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="col-md-12">
+                <button class="btn btn-primary addNewBtn btn-lg pull-right" type="button">AddNewRequest</button>
+                <button class="btn btn-primary cancelBtn btn-lg pull-right" type="button">Cancel</button>
+             </div>
+        </div>
+    </div>
+</div>
+</body>

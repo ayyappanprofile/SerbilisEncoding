@@ -1,0 +1,35 @@
+<nav class="navbar navbar-default"> 
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="/src/assets/images/psa-fevicon.png" height="50" width="50">
+            <h4 class="logo-title" >Serbilis</h4>               
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">                   
+                <li routerLink="/register"><a style="cursor:pointer;">Register</a></li>    
+                <li routerLink="/login"><a style="cursor:pointer;">Login</a></li>                  
+                <li><a style="cursor:pointer;" data-toggle="modal" data-target="#logoutModal">Logout</a></li>            
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="modal" id="logoutModal" tabindex="-1" role="dialog" aria-hidden="true" #logoutModal>
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+              <h4>Log Out <i class="fa fa-lock"></i></h4>
+            </div>
+            <div class="modal-body">
+              <p><i class="fa fa-question-circle"></i> Are you sure you want to log-off? <br /></p>
+              <div class="actionsBtns">
+                    <form>                   
+                      <input type="button" (click)="onLogout()" class="btn btn-default btn-primary" data-dismiss="modal" value="Logout" />
+                      <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

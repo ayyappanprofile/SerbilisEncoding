@@ -1,0 +1,475 @@
+<body id="CertificateDetails">
+<h3 class="title mb-20 mt-0">Request Details</h3>
+<div class="row">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Certificate Type</label>
+            <select class="form-control" id="RequestType" data-bind="disable:IsTypeOfCertificateEnable,value:SelectedCertificate" placeholder="Select Certificate Type">
+                <option value="BIRTH">Birth</option>
+                <option value="DEATH">Death</option>
+                <option value="MARRIAGE">Marriage</option>
+                <option value="CENOMAR">CENOMAR</option>
+                <option value="CENODEATH">CENODEATH</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:CertificateType()!=='CENOMAR' && CertificateType()!=='CENODEATH' ">
+        <div class="form-group">
+            <label>Type of Request</label>
+            <select class="form-control" data-bind="value:TransactionType" placeholder="Select Type of Request">
+                <option value="CI">Copy Issuance</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:TransactionType()=='CI'">
+        <div class="form-group">
+            <label>Number of Copies</label>
+            <select class="form-control" data-bind="value:Copies">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<h3 class="title mb-20 mt-0">Certificate Details</h3>
+<div class="row" data-bind="visible:CertificateType()=='BIRTH'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Child's Last Name<sup>*</sup></label>
+            <input id="txtChildLastName" type="text" data-bind="value:ChildLastName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                         keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Child's Last Name" maxlength="30">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Child's First Name<sup>*</sup></label>
+            <input id="txtChildFirstName" type="text" data-bind="value:ChildFirstName, valueUpdate:'afterkeydown',event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                          keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Child's First Name" maxlength="50">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Child's Middle Name</label>
+            <input id="txtChildMiddleName" type="text" data-bind="value:ChildMiddleName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                             keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Child's Middle Initial" maxlength="30">
+        </div>
+    </div>
+</div>
+<div class="row" data-bind="visible:CertificateType()=='MARRIAGE'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Husband's Last Name<sup>*</sup></label>
+            <input id="txtHusbandLastName" type="text" data-bind="value:HusbandLastName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                             keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Husband's Last Name" maxlength="30">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Husband's First Name<sup>*</sup></label>
+            <input id="txtHusbandFirstName" type="text" data-bind="value:HusbandFirstName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                               keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Husband's First Name" maxlength="50">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Husband's Middle Name</label>
+            <input id="txtHusbandMiddleName" type="text" data-bind="value:HusbandMiddleName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                 keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Husband's Middle Name" maxlength="30">
+        </div>
+    </div>
+</div>
+<div class="row" data-bind="visible:CertificateType()=='MARRIAGE'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Wife's Last Name<sup>*</sup></label>
+            <input id="txtWifeLastName" type="text" data-bind="value:WifeLastName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                       keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Wife's Last Name" maxlength="30">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Wife's First Name<sup>*</sup></label>
+            <input id="txtWifeFirstName" type="text" data-bind="value:WifeFirstName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                         keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Wife's First Name" maxlength="50">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Wife's Middle Name</label>
+            <input id="txtWifeMiddleName" type="text" data-bind="value:WifeMiddleName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                           keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Wife's Middle Name" maxlength="30">
+        </div>
+    </div>
+</div>
+<div class="row" data-bind="visible:CertificateType()=='DEATH'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Deceased's Last Name<sup>*</sup></label>
+            <input id="txtDeceasedLastName" type="text" data-bind="value:DeceasedLastName, valueUpdate:'afterkeydown',event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                              keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Deceased's Last Name" maxlength="30">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Deceased's First Name<sup>*</sup></label>
+            <input id="txtDeceasedFirstName" type="text" data-bind="value:DeceasedFirstName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                 keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Deceased's First Name" maxlength="50">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Deceased's Middle Name</label>
+            <input id="txtDeceasedMiddleName" type="text" data-bind="value:DeceasedMiddleName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                   keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Deceased's Middle Name" maxlength="30">
+        </div>
+    </div>
+</div>
+<div class="row" data-bind="visible:CertificateType()=='CENOMAR'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Child's Last Name<sup>*</sup></label>
+            <input id="txtCENOMARChildLastName" type="text" data-bind="value:CenomarLastName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                  keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Child's Last Name" maxlength="30">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label> Child's First Name<sup>*</sup></label>
+            <input id="txtCENOMARChildFirstName" type="text" data-bind="value:CenomarFirstName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                    keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Child's First Name" maxlength="50">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Child's Middle Name</label>
+            <input id="txtCENOMARChildMiddleName" type="text" data-bind="value:CenomarMiddleName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                      keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Child's Middle Name" maxlength="30">
+        </div>
+    </div>
+</div>
+
+<div class="row" data-bind="visible:CertificateType()=='CENODEATH'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Child's Last Name<sup>*</sup></label>
+            <input id="txtCENODEATHChildLastName" type="text" data-bind="value:CenodeathLastName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                      keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Child's Last Name" maxlength="30">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label> Child's First Name<sup>*</sup></label>
+            <input id="txtCENODEATHChildFirstName" type="text" data-bind="value:CenodeathFirstName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                        keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Child's First Name" maxlength="50">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Child's Middle Name</label>
+            <input id="txtCENODEATHChildMiddleName" type="text" data-bind="value:CenodeathMiddleName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                          keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Child's Middle Name" maxlength="30">
+        </div>
+    </div>
+</div>
+<div class="row" data-bind="visible:CertificateType()=='BIRTH' || CertificateType()=='CENOMAR' || CertificateType()=='CENODEATH'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group mb-0">
+            <label>Place of Birth (Country)<sup>*</sup></label>
+            <select id="birthCountry" class="form-control" data-bind="disable:TransactionType()=='EE',options:Countries,optionsText: 'Text',value:SelectedCountry,optionsCaption:'Select Country',event:{ change:$root.CountryChanged}"></select>
+        </div><br />
+        <div class="form-group mb-0">
+            <label>Place of Birth (Province)<sup>*</sup></label>
+            <select id="birthProvince" class="form-control" data-bind="enable:IsPhilippinesCountry,options:Provinces,optionsText: 'Text',value:SelectedProvince,optionsCaption:'Select Province',event:{ change: $root.ProvinceChanged}"></select>
+        </div><br />
+        <div class="form-group">
+            <label>Place of Birth (City/Muncipality)<sup>*</sup></label>            
+            <select id="birthCity" class="form-control" data-bind="enable:IsPhilippinesCountry,options:CityList,optionsText: function(item) { return ko.unwrap(item.Description) + ' - ' + ko.unwrap(item.Code); },value:SelectedMuncipal,optionsCaption:'Select City/Muncipality',event:{ change: $root.CityChanged}"></select>
+        </div>
+    </div>
+    <div class="col-lg-8 col-sm-8 col-xs-12 birth-place-info-text" id="birthPlaceAdvisory" style="display:none">
+        <div class="form-group">
+            <label>
+                <span>Please email the following information to <a>info@psaserbilis.com.ph:</a></span>
+            </label>
+            <ul class="birth-place-info-ul">
+                <li>DFA Reference Number</li>
+                <li>Dispatch Number</li>
+                <li>Dispatch Date</li>
+                <li>Transmittal Date</li>
+            </ul>
+            <label>
+                These can be obtained from the Consular Records Division of DFA Manila. <a target="_blank" rel="noopener noreferrer" href="https://www.psaserbills.com.ph/Secure/FAQs.aspx#D17">More info</a>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row" data-bind="visible:CertificateType()=='MARRIAGE'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group mb-0">
+            <label>Place of Marriage (Country)<sup>*</sup></label>
+            <select id="marriageCountry" class="form-control" data-bind="disable:TransactionType()=='EE',options:Countries,optionsText: 'Text',value:SelectedCountry,optionsCaption:'Select Country',event:{ change:$root.CountryChanged}"></select>
+        </div><br />
+        <div class="form-group mb-0">
+            <label>Place of Marriage (Province)<sup>*</sup></label>
+            <select id="marriageProvince" class="form-control" data-bind="enable:IsPhilippinesCountry,options:Provinces,optionsText: 'Text',value:SelectedProvince,optionsCaption:'Select Province',event:{ change: $root.ProvinceChanged}"></select>
+        </div><br />
+        <div class="form-group">
+            <label>Place of Marriage (City/Muncipality)<sup>*</sup></label>            
+            <select id="marriageCity" class="form-control" data-bind="enable:IsPhilippinesCountry,options:CityList,optionsText: function(item) { return ko.unwrap(item.Description) + ' - ' + ko.unwrap(item.Code); },value:SelectedMuncipal,optionsCaption:'Select City/Muncipality',event:{ change: $root.CityChanged}"></select>
+        </div>
+    </div>    
+    <div class="col-lg-8 col-sm-8 col-xs-12 birth-place-info-text" id="marriagePlaceAdvisory" style="display:none">
+        <div class="form-group">
+            <label>
+                <span>Please email the following information to <a>info@psaserbilis.com.ph:</a></span>
+            </label>
+            <ul class="birth-place-info-ul">
+                <li>DFA Reference Number</li>
+                <li>Dispatch Number</li>
+                <li>Dispatch Date</li>
+                <li>Transmittal Date</li>
+            </ul>
+            <label>
+                These can be obtained from the Consular Records Division of DFA Manila. <a target="_blank" rel="noopener noreferrer" href="https://www.psaserbills.com.ph/Secure/FAQs.aspx#D17">More info</a>
+            </label>
+        </div>
+    </div>
+</div>
+    <div class="row" data-bind="visible:CertificateType()=='DEATH'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group mb-0">
+            <label>Place of Death (Country)<sup>*</sup></label>
+            <select id="deathCountry" class="form-control" data-bind="disable:TransactionType()=='EE',options:Countries,optionsText: 'Text',value:SelectedCountry,optionsCaption:'Select Country',event:{ change:$root.CountryChanged}"></select>
+        </div><br />
+        <div class="form-group mb-0">
+            <label>Place of Death (Province)<sup>*</sup></label>
+            <select id="deathProvince" class="form-control" data-bind="enable:IsPhilippinesCountry,options:Provinces,optionsText: 'Text',value:SelectedProvince,optionsCaption:'Select Province',event:{ change: $root.ProvinceChanged}"></select>
+        </div><br />
+        <div class="form-group">
+            <label>Place of Death (City/Muncipality)<sup>*</sup></label>            
+            <select id="deathCity" class="form-control" data-bind="enable:IsPhilippinesCountry,options:CityList,optionsText: function(item) { return ko.unwrap(item.Description) + ' - ' + ko.unwrap(item.Code); },value:SelectedMuncipal,optionsCaption:'Select City/Muncipality',event:{ change: $root.CityChanged}"></select>
+        </div>
+    </div>
+    <div class="col-lg-8 col-sm-8 col-xs-12 birth-place-info-text" id="deathPlaceAdvisory" style="display:none">
+        <div class="form-group">
+            <label>
+                <span>Please email the following information to <a>info@psaserbilis.com.ph:</a></span>
+            </label>
+            <ul class="birth-place-info-ul">
+                <li>DFA Reference Number</li>
+                <li>Dispatch Number</li>
+                <li>Dispatch Date</li>
+                <li>Transmittal Date</li>
+            </ul>
+            <label>
+                These can be obtained from the Consular Records Division of DFA Manila. <a target="_blank" rel="noopener noreferrer" href="https://www.psaserbills.com.ph/Secure/FAQs.aspx#D17">More info</a>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:CertificateType()=='BIRTH' || CertificateType()=='CENOMAR' || CertificateType()=='CENODEATH'">
+        <div class="form-group clearfix">
+            <label>Date of Birth<sup>*</sup></label>
+            <div class="input-group">
+                <input class="form-control form-field" type="text" id="BirthDate" data-mask="99/99/9999" data-bind="value:DateOfEvent" placeholder="MM/DD/YYYY">
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:CertificateType()=='MARRIAGE'">
+        <div class="form-group clearfix">
+            <label>Date of Marriage<sup>*</sup></label>
+            <div class="input-group">
+                <input class="form-control form-field" type="text" id="MarriageDate" data-mask="99/99/9999" data-bind="value:DateOfEvent" placeholder="MM/DD/YYYY">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:CertificateType()=='DEATH'">
+        <div class="form-group clearfix">
+            <label>Date of Death<sup>*</sup></label>
+            <div class="input-group">
+                <input class="form-control form-field" type="text" id="DeathDate" data-mask="99/99/9999" data-bind="value:DateOfEvent" placeholder="MM/DD/YYYY">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12 mt-10" data-bind="visible:CertificateType()!='MARRIAGE'">
+        <div class="form-group">
+            <label class="display-block">Sex<sup>*</sup></label>
+            <div class="radio">
+                <label style="margin-right:8px;">
+                    <input name="form-field-radio" type="radio" value="1" data-bind="checked:Sex, event: { click:  $root.genderChanged }">
+                    <span class="text">Male </span>
+                </label>
+                <label>
+                    <input name="form-field-radio" type="radio" value="2" data-bind="checked:Sex, event: { click:  $root.genderChanged }">
+                    <span class="text">Female </span>
+                </label>
+            </div>
+            <span class="wrong-field" style="display:none;" id="spangender">Gender is required</span>
+
+        </div>
+    </div>
+</div>
+<div class="row" data-bind="visible:CertificateType()=='BIRTH' || CertificateType()=='DEATH' || CertificateType()=='MARRIAGE' || CertificateType()=='CENODEATH' || CertificateType()=='Viewable Online'">
+    <div class="col-lg-4 col-sm-4 col-xs-12" id="provinceYearAdvisory" data-bind="visible:ValidateEventDate">
+        <div class="form-group">
+            <label class="mb-5"><b>Important Advisory</b></label><br />
+            <label>
+                PSA may not be able to provide a copy of this <span data-bind="text:CertificateType()"></span> certificate.
+                Civil registry records that are available in PSA’s electronic and paper archives cover births, marriages and deaths
+                that occurred 1945 onwards, and from 1951 onwards for events
+                that occurred in City of Manila. <a target="_blank" rel="noopener noreferrer" href="https://www.psaserbills.com.ph/Secure/FAQs.aspx#D10">More info</a>
+            </label>
+        </div>
+    </div>
+</div>
+<div class="row" data-bind="visible:CertificateType()=='BIRTH' || CertificateType()=='CENOMAR' || CertificateType()=='CENODEATH' || CertificateType()=='DEATH'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Father's Last Name</label>
+            <input id="txtBCCDFatherLastName" type="text" data-bind="value:FatherLastName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                               keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Last Name" maxlength="30">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Father's First Name</label>
+            <input id="txtBCCDFatherFirstName" type="text" data-bind="value:FatherFirstName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                 keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Father's First Name" maxlength="50">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Father's Middle Name</label>
+            <input id="txtBCCDFatherMiddleName" type="text" data-bind="value:FatherMiddleName, valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                   keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Father's Middle Name" maxlength="30">
+        </div>
+    </div>
+
+</div>
+<div class="row" data-bind="visible:CertificateType()=='BIRTH' || CertificateType()=='CENOMAR' || CertificateType()=='CENODEATH'|| CertificateType()=='DEATH'">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Mother’s Maiden Last Name<sup>*</sup></label>
+            <input id="txtBCCDMotherLastName" type="text" data-bind="value:MotherLastName,valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                              keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Maiden Last Name" maxlength="30">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Mother's First Name<sup>*</sup></label>
+            <input id="txtBCCDMotherFirstName" type="text" data-bind="value:MotherFirstName,valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Maiden First Name" maxlength="50">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label>Mother’s Maiden Middle Name</label>
+            <input id="txtBCCDMotherMiddleName" type="text" data-bind="value:MotherMiddleName,valueUpdate:'afterkeydown', event:{ paste : function(data, event) { return ValidatePastedValue($element,event)},
+                                                                                                                                  keyup: function(data, event) { return ValidateFirstLetterEntry($element,event)}}" class="form-control" placeholder="Maiden Middle Name" maxlength="30">
+        </div>
+    </div>
+</div>
+
+<div class="row mt-20">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group">
+            <label for="relationWithOwner">Relationship with Document Owner<sup>*</sup></label>
+            <select class="form-control" data-bind="options:RequestRelationship,optionsText:'Text',value:SelectedRelationship,optionsCaption:'Select Relationship with Document Owner'"></select>
+        </div>
+    </div>
+    <div class="col-lg-8 col-sm-8 col-xs-12">
+        <div class="form-group">
+            <label class="mb-5"><b>The Child and Youth welfare code (P.D. 603)</b></label><br />
+            <label>
+                Authorization and ID of the document owner together with the requester's ID
+                are required if the requester is NOT any of the following:
+            </label>
+            <ol type="a" class="pl-20">
+                <li>the owner of the birth certificate</li>
+                <li>his/her parent</li>
+                <li>his/her spouse</li>
+                <li>his/her direct descendant</li>
+                <li>his/her legal guardian/institution-in-charge, if minor.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<h3 class="title mb-20 mt-0">Purpose</h3>
+<div class="row">
+    <div data-bind="visible:TransactionType()!=='EE'">
+        <div class="col-lg-4 col-sm-4 col-xs-12">
+            <div class="form-group">
+                <label>Purpose of Request<sup>*</sup></label>                
+                <select id="ddlSupplier" class="form-control" data-bind="disable:IsRequestPurposeDisabled,options:RequestPurpose,optionsText: 'Text',value:SelectedPurpose,optionsCaption: 'Select Purpose of Request',event:{ change: $root.PurposeChanged}"></select>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:IsOtherPurposeVisible">
+            <div class="form-group">
+                <label data-bind="text:OtherPurposeText"></label><sup>*</sup>
+                <input type="text" class="form-control" data-bind="visible:IsPurposeVisible,value:OtherPurpose, valueUpdate:'afterkeydown'" placeholder="Other Purpose">
+                <select class="form-control" data-bind="visible:IsPurposeCountryVisible,options:PurposeCountries,optionsText: 'Text',value:SelectedPurposeCountry,optionsCaption:'Select Country'"></select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mr-0 ml-0" data-bind="visible:CertificateType()=='BIRTH' || CertificateType()=='DEATH' || CertificateType()=='MARRIAGE' || CertificateType()=='CENOMAR' || CertificateType()=='CENODEATH'">
+    <div class="checkbox mb-0">
+        <label>
+            <input type="checkbox" id="EmbassyDelChkBx" class="overview-condition-chkbox" data-bind="checked: IsEmbDelSelected, event: { change: EmbassyDelClick}">
+            <span class="text">
+                <label for="EmbassyDelChkBx">For delivery to an Embassy?</label>
+            </span>
+        </label>
+    </div>
+</div>
+
+<div class="row mt-20 setup-content" id="step-1" data-bind="visible:IsEmbDelSelected">
+    <div class="col-lg-4 col-sm-4 col-xs-12">
+        <div class="form-group mb-0">
+            <label class="form-label">Delivery To<sup>*</sup></label>            
+            <select class="form-control form-field" id="DeliveryToComboBx" data-bind="options:DeliveryToList,value:DeliveryEmbName,optionsText:'Text',optionsCaption:'Select', event:{ change: deliveryEmbChanged}"></select>
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:IsDeliveryEmbNameAU">
+        <div class="form-group">
+            <label>File Reference Number<sup>*</sup></label>
+            <input type="text" data-bind="value:EmbFileRefNumber,valueUpdate:'afterkeydown'" class="form-control" placeholder="File Reference Number" maxlength="12">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:IsDeliveryEmbNameES">
+        <div class="form-group">
+            <label>Reference Number<sup>*</sup></label>
+            <input type="text" data-bind="value:EmbRefNumber,valueUpdate:'afterkeydown'" class="form-control" placeholder="Reference Number" maxlength="14">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:IsDeliveryEmbNameUS">
+        <div class="form-group">
+            <label>Case No.<sup>*</sup></label>
+            <input type="text" data-bind="value:EmbCaseNumber,valueUpdate:'afterkeydown'" class="form-control" placeholder="Case No." maxlength="30">
+        </div>
+    </div>
+    <div class="col-lg-4 col-sm-4 col-xs-12" data-bind="visible:IsDeliveryEmbNameUS">
+        <label>Interview Date<sup>*</sup></label>
+        <div class="input-group">
+            <input class="form-control form-field" type="text" id="InterviewDate" data-mask="99/99/9999" data-bind="value:InterviewDateVal" placeholder="MM/DD/YYYY">
+        </div>
+    </div>
+    <div class="col-md-12">
+       <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+    </div>
+</div>
+</body>

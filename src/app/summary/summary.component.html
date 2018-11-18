@@ -1,0 +1,114 @@
+<body id="SummaryDetails" >
+<div class="col-lg-12 lr-padding-0" style="margin-bottom: 30px;">
+    <input type="hidden" data-bind="TransactionSeriesNo"/>
+    <input type="hidden" data-bind="OthersWebReferenceNo" />
+    <input type="hidden" data-bind="VOWebReferenceNo" />
+    <input type="hidden" data-bind="CurrencyType"/>
+    <div class="flip-scroll">
+        <table class="table table-striped table-bordered flip-content">
+            <thead class="flip-content">
+                <tr>
+                    <th>Certificate Type</th>
+                    <th>Document Owners Name</th>
+                    <th>Event Date</th>
+                    <th>Event Place</th>
+                    <th>Number Of Copies</th>
+                    <th>Amount(PHP)</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach:CertRequests">
+                <tr>
+                    <td>
+                        <span data-bind="if:TransactionType!='VO'">
+                            <span data-bind="text:SelectedCertificate"></span>
+                        </span>
+                        <span data-bind="if:TransactionType=='VO'">
+                            <span data-bind="text:'Viewable Online-'+SelectedCertificate"></span>
+                        </span>
+                    </td>
+                    <td>
+                        <span data-bind="if:SelectedCertificate=='MARRIAGE'"><span data-bind="text:HusbandLastName+','+HusbandFirstName+' '+(HusbandMiddleName!=undefined?HusbandMiddleName:'')+', '+WifeLastName+','+WifeFirstName+' '+(WifeMiddleName!=undefined?WifeMiddleName:'')"></span></span>
+                        <span data-bind="if:SelectedCertificate=='BIRTH'"><span data-bind="text:ChildLastName+','+ChildFirstName+' '+(ChildMiddleName!= undefined?ChildMiddleName:'')"></span></span>
+                        <span data-bind="if:SelectedCertificate=='DEATH'"><span data-bind="text:DeceasedLastName+','+DeceasedFirstName+' '+(DeceasedMiddleName!=undefined?DeceasedMiddleName:'')"></span></span>
+                        <span data-bind="if:SelectedCertificate=='CENOMAR'"><span data-bind="text:CenomarLastName+','+CenomarFirstName+' '+(CenomarMiddleName!=undefined?CenomarMiddleName:'')"></span></span>
+                        <span data-bind="if:SelectedCertificate=='CENODEATH'"><span data-bind="text:CenodeathLastName+', '+CenodeathFirstName+' '+(CenodeathMiddleName!=undefined?CenodeathMiddleName:'')"></span></span>
+                        <span data-bind="if:SelectedCertificate=='EE Birth'"><span data-bind="text:ChildLastName+', '+ChildFirstName+' '+(ChildMiddleName!= undefined?ChildMiddleName:'')"></span></span>
+                        <span data-bind="if:SelectedCertificate=='EE Marriage'"><span data-bind="text:HusbandLastName+', '+HusbandFirstName+' '+(HusbandMiddleName!=undefined?HusbandMiddleName:'')+', '+WifeLastName+', '+WifeFirstName+' '+(WifeMiddleName!=undefined?WifeMiddleName:'')"></span></span>
+                        <span data-bind="if:SelectedCertificate=='EE Death'"><span data-bind="text:DeceasedLastName+', '+DeceasedFirstName+' '+(DeceasedMiddleName!=undefined?DeceasedMiddleName:'')"></span></span>
+                    </td>
+                    <td><span data-bind="text:DateOfEvent!=null?moment(DateOfEvent).format('MM/DD/YYYY'):''"></span></td>
+                    <td>                       
+                        <span data-bind="text:SelectedMuncipal!=undefined?(SelectedCountry.Text +', '+SelectedProvince.Text +', '+SelectedMuncipal.Description):SelectedCountry.Text"></span>
+                    </td>
+                    <td>
+                        <span data-bind="text:TransactionType!=null?((TransactionType=='EE' && (SelectedCertificate=='BIRTH' || SelectedCertificate=='MARRIAGE'||SelectedCertificate=='DEATH') ) ||(SelectedCertificate=='Viewable Online')?'NA':Copies):''"></span>
+                    </td>
+                    <td>
+                        <span data-bind="if:($parent.RequesterDeliveryCountry.Text=='PHILIPPINES' &&(SelectedCertificate=='BIRTH' || SelectedCertificate=='MARRIAGE'||SelectedCertificate=='DEATH'||SelectedCertificate=='CENODEATH'||SelectedCertificate=='viewableOnline'))"><span data-bind="text:(TransactionType=='EE' && (SelectedCertificate=='BIRTH' || SelectedCertificate=='MARRIAGE'||SelectedCertificate=='DEATH') )?'NA':TotalAmout.PHP_CI"></span></span>
+                        <span data-bind="if:($parent.RequesterDeliveryCountry.Text!='PHILIPPINES' &&(SelectedCertificate=='BIRTH' || SelectedCertificate=='MARRIAGE'||SelectedCertificate=='DEATH'||SelectedCertificate=='CENODEATH'||SelectedCertificate=='viewableOnline'))"><span data-bind="text:(TransactionType=='EE' && (SelectedCertificate=='BIRTH' || SelectedCertificate=='MARRIAGE'||SelectedCertificate=='DEATH') )?'NA':TotalAmout.USD_CI"></span></span>
+                        <span data-bind="if:($parent.RequesterDeliveryCountry.Text!='PHILIPPINES' && SelectedCertificate=='CENOMAR')"><span data-bind="text:(TransactionType=='EE' && (SelectedCertificate=='BIRTH' || SelectedCertificate=='MARRIAGE'||SelectedCertificate=='DEATH'||SelectedCertificate=='CENODEATH') )?'NA':TotalAmout.USD_CENOMAR"></span></span>
+                        <span data-bind="if:($parent.RequesterDeliveryCountry.Text=='PHILIPPINES' && SelectedCertificate=='CENOMAR')"><span data-bind="text:(TransactionType=='EE' && (SelectedCertificate=='BIRTH' || SelectedCertificate=='MARRIAGE'||SelectedCertificate=='DEATH'||SelectedCertificate=='CENODEATH') )?'NA':TotalAmout.PHP_CENOMAR"></span></span>
+                        <span data-bind="if:(SelectedCertificate=='EE Birth' || SelectedCertificate=='EE Marriage' || SelectedCertificate=='EE Death')"><span data-bind="text:'NA'"></span></span>
+                    </td>
+                    <td>
+                        <a href="#" data-bind="">
+                            <i class="fa fa-pencil custom-tooltip" data-toggle="tooltip" data-placement="bottom" data-original-title="Edit" data-target="#EditRequestModal" data-bind="click:$parent.GetSelectedRow.bind($data,$index,'Step1')"></i>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-trash custom-tooltip" data-toggle="tooltip" data-placement="bottom" data-original-title="Delete" data-target="#DeleteConfirmationModal" title="click to Delete" data-bind="click:$parent.RemoveSelectedRow.bind($data,$index)"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>            
+        </table>
+    </div>
+</div>
+
+<h3 class="title mb-0">
+    Requester Details
+</h3>
+<div class="col-lg-12 lr-padding-0" style="margin-bottom: 30px;">
+    <table class="table table-striped table-bordered flip-content">
+        <thead></thead>
+        <tbody data-bind="foreach:RequesterDetails">
+            <tr>
+                <td><span data-bind="text:ClaimaintLastName + ' ' + ClaimaintFirstName +'  ' + (ClaimaintMiddleName!= undefined ? ClaimaintMiddleName:'')"></span></td>
+                <td><span data-bind="text:Email"></span></td>
+                <td><span data-bind="text:Mobile"></span></td>
+                <td>
+                    <a href="#" class="pull-right" onclick="NavigateToStep2();">
+                        <i class="fa fa-pencil custom-tooltip" data-toggle="tooltip" data-placement="bottom" data-original-title="Edit" data-target="#EditRequesterDetailsModal" data-bind="click:$parent.GetSelectedRow.bind($data,$index,'Step2')"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>      
+</div>
+
+<h3 class="title mb-0">
+    Delivery / Requester's Address
+</h3>
+<div class="">
+    <div class="flip-scroll">
+    <table class="table table-striped table-bordered flip-content">
+        <thead></thead>
+        <tbody data-bind="foreach:RequesterDetails">
+            <tr>
+                <td><span data-bind="text:AddressLine1!=null?AddressLine1:' '"></span></td>
+                <td><span data-bind="text:AddressLine2!=null?AddressLine2:' '+ '  ' +Landmark!=null?Landmark:''"></span></td>               
+                <td><span data-bind="text: DeliverySelectedMuncipal.Description+', ' + DeliverySelectedProvince.Text + ', ' + DeliverySelectedCountry.Text + ', '+ZipCode"></span></td>
+                <td>
+                    <a href="#" class="pull-right" onclick="NavigateToStep2();">
+                        <i class="fa fa-pencil custom-tooltip" data-toggle="tooltip" data-placement="bottom" data-original-title="Edit" data-target="#EditDeliveryAddressModal" data-bind="click:$parent.GetSelectedRow.bind($data,$index,'Step2')"></i>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>    
+    </div>    
+</div>
+<div class="col-md-12">
+    <button class="btn btn-primary addNewBtn pull-right" type="button">Submit</button>
+</div>
+</body>

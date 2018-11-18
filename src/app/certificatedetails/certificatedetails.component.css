@@ -1,0 +1,19 @@
+.birth-place-info-text {
+    padding-left: 8%;
+    margin-top: 4%;
+}
+
+.birth-place-info-ul {
+    padding-left: 5%;
+    margin-bottom: 4px;
+    font-weight: 300;
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}
+#CertificateDetails{ background-image:url("/src/assets/images/loginwallpaper.jpg") ; background-repeat:no-repeat; background-position:center; background-size:cover; padding:40px;}
+
+select,input{
+    background-color:antiquewhite; 
+}

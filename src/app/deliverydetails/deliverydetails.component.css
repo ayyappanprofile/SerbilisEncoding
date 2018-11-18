@@ -1,0 +1,23 @@
+#DeliveryDetails{ background-image:url("/src/assets/images/loginwallpaper.jpg") ; background-repeat:no-repeat; background-position:center; background-size:cover; padding:40px;}
+
+.ml-0 {
+    margin-left: 0px !important;
+}
+.mr-0 {
+    margin-right: 0px;
+}
+.ecensus-home-page .radio {
+    display: inline;
+    margin-right: 15px;
+    color: #858585;
+    line-height: 22px;
+}
+.ecensus-home-page .radio-box label {
+    width: 100%;
+}
+.ecensus-home-page .radio-box label .form-control {
+    margin-top: 8px;
+}
+select,input{
+    background-color:antiquewhite; 
+}
